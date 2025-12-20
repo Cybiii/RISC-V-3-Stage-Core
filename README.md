@@ -1,1 +1,1 @@
-# RISC-V-3-Stage-Core
+# EECS 151/251A ASIC Project Skeleton for Fall 2025
