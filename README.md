@@ -20,6 +20,8 @@ The CPU implements a classic 3-stage pipeline:
 2. **Decode/Execute Stage**: Instruction decoding, ALU operations, memory access
 3. **Writeback Stage**: Register file updates
 
+![151](https://github.com/user-attachments/assets/0501c1fc-a4d6-41cb-a675-2faaed531b55)
+
 ## Core Components
 
 ### CPU Core (`Riscv151.v`)
@@ -50,9 +52,12 @@ Generates control signals for instruction execution, including:
 
 ### Memory System
 
-- **Cache** (`Cache.v`): Direct-mapped instruction and data cache
+- **Cache** (`Cache.v`): Instruction and data cache
 - **Memory** (`Memory151.v`): Main memory controller
 - **Partial Load/Store**: Handles byte and halfword memory operations
+![151(1)](https://github.com/user-attachments/assets/1db9d5e1-e972-4364-987f-f9f91320f2d0)
+
+![151(2)](https://github.com/user-attachments/assets/b2192187-e555-4806-857c-088e16f1b483)
 
 ## Testing
 
