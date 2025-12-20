@@ -1,0 +1,157 @@
+# Placement Constraints (standard cells, SRAMs)
+
+# Source: hammer/src/hammer-vlsi/defaults.yml
+# - Valid options:
+#   - "r0"   (standard orientation)
+#   - "r90"  (rotated 90 degrees clockwise)
+#   - "r180" (rotated 180 degrees)
+#   - "r270" (rotated 270 degrees clockwise; equivalent to -90 degrees counterclockwise)
+#   - "mx"   (mirrored about the x-axis)
+#   - "mx90" (mirrored about the x-axis, then rotated 90 degrees clockwise)
+#   - "my"   (mirrored about the y-axis)
+#   - "my90" (mirrored about the y-axis, then rotated 90 degrees clockwise)
+# x (float) - x coordinate in um
+# - Required for all types
+# y (float) - y coordinate in um
+# - Required for all types
+# width (float) - width in um
+# - Required for all types, but can be auto-filled for hierarchical and hardmacro if left blank
+# height (float) - height in um
+# - Required for all types, but can be auto-filled for hierarchical and hardmacro if left blank
+
+vlsi.inputs.placement_constraints:
+  - path: "riscv_top"
+    type: toplevel
+
+    # Set the floorplan margin
+    margins:
+      left:   0
+      right:  0
+      top:    0
+      bottom: 0
+
+    # Lower left corner coordinate of the top module
+    # CPU centered at middle of floorplan (x=1000, y=1000)
+    x: -146
+    y: -150
+
+    # Floorplan dimensions
+    width: &FP_WIDTH 2000
+    height: 2400  # Increased height for more vertical spacing
+
+    # Modify the path of the SRAMs according to your design
+    # Add more hardmacro placement constraints if your design
+    # uses more SRAMs
+    # You can play around with different options of
+    # orientations and locations to achieve good QoR
+
+    # LEFT SIDE: Instruction Cache SRAMs
+    #SRAM1RW64x32 - Left metadata
+  - path: "riscv_top/mem/icache/metadata"
+    type: hardmacro
+    x: 265
+    y: 200
+    orientation: "r90"
+    top_layer: met3
+
+    #SRAM1RW256x128 - Left cache0
+  - path: "riscv_top/mem/icache/cache0"
+    type: hardmacro
+    x: 265
+    y: 685
+    orientation: "r90"
+    top_layer: met3
+
+    #SRAM1RW256x128 - Left cache1
+  - path: "riscv_top/mem/icache/cache1"
+    type: hardmacro
+    x: 265
+    y: 1005
+    orientation: "r90"
+    top_layer: met3
+
+    #SRAM1RW256x128 - Left cache2
+  - path: "riscv_top/mem/icache/cache2"
+    type: hardmacro
+    x: 265
+    y: 1325
+    orientation: "r90"
+    top_layer: met3
+
+    #SRAM1RW256x128 - Left cache3
+  - path: "riscv_top/mem/icache/cache3"
+    type: hardmacro
+    x: 265
+    y: 1645
+    orientation: "r90"
+    top_layer: met3
+
+    # RIGHT SIDE: Data Cache SRAMs
+    #SRAM1RW64x32 - Right metadata
+  - path: "riscv_top/mem/dcache/metadata"
+    type: hardmacro
+    x: 1725
+    y: 200
+    orientation: "r270"
+    top_layer: met3
+
+    #SRAM1RW256x128 - Right cache0
+  - path: "riscv_top/mem/dcache/cache0"
+    type: hardmacro
+    x: 1600
+    y: 685
+    orientation: "r270"
+    top_layer: met3
+
+    #SRAM1RW256x128 - Right cache1
+  - path: "riscv_top/mem/dcache/cache1"
+    type: hardmacro
+    x: 1600
+    y: 1005
+    orientation: "r270"
+    top_layer: met3
+
+    #SRAM1RW256x128 - Right cache2
+  - path: "riscv_top/mem/dcache/cache2"
+    type: hardmacro
+    x: 1600
+    y: 1325
+    orientation: "r270"
+    top_layer: met3
+
+    #SRAM1RW256x128 - Right cache3
+  - path: "riscv_top/mem/dcache/cache3"
+    type: hardmacro
+    x: 1600
+    y: 1645
+    orientation: "r270"
+    top_layer: met3
+
+  - path: "riscv_top/place_obs_bottom"
+    type: obstruction
+    obs_types: ["place"]
+    x: 0
+    y: 0
+    width: *FP_WIDTH # must span across the whole floorplan
+    height: 1.08 # 1 core site tall, necessary to avoid shorts
+
+# Pin placement constraints
+# Pins are placed at the bottom of the layout
+vlsi.inputs.pin_mode: generated
+vlsi.inputs.pin.generate_mode: semi_auto
+vlsi.inputs.pin.assignments: [
+  {pins: "*", layers: ["met4"], side: "bottom"}
+]
+
+# Hammer will auto-generate a CPF for simple power designs; see hammer/src/hammer-vlsi/defaults.yml for more info
+vlsi.inputs.power_spec_mode: "auto"
+vlsi.inputs.power_spec_type: "cpf"
+
+# Clock Concurrent Optimization for CTS
+par.innovus.use_cco: true
+
+# Enable this option will let Innovus perform auto floorplan exploration.
+# All the placement constraints specified above will be ignored.
+# This might lead to poor QoR and more DRVs.
+
+#par.innovus.floorplan_mode: auto
