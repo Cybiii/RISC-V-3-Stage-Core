@@ -55,11 +55,11 @@ Generates control signals for instruction execution, including:
 - **Cache** (`Cache.v`): Instruction and data cache
 - **Memory** (`Memory151.v`): Main memory controller
 - **Partial Load/Store**: Handles byte and halfword memory operations
+
 ![151(1)](https://github.com/user-attachments/assets/1db9d5e1-e972-4364-987f-f9f91320f2d0)
 
-![151(2)](https://github.com/user-attachments/assets/b2192187-e555-4806-857c-088e16f1b483)
-
 ## Testing
+
 
 The project includes comprehensive test coverage:
 
