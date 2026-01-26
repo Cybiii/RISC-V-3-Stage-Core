@@ -58,15 +58,6 @@ Generates control signals for instruction execution, including:
 
 ![151(1)](https://github.com/user-attachments/assets/1db9d5e1-e972-4364-987f-f9f91320f2d0)
 
-## Testing
-
-
-The project includes comprehensive test coverage:
-
-- **RISC-V ISA Compliance Tests**: Full suite of official RISC-V compliance tests
-- **Benchmark Programs**: Various benchmark applications
-- **ALU Testbenches**: Unit tests for ALU functionality
-
 ## Configuration Files
 
 - `sim-rtl.yml`: RTL simulation configuration
