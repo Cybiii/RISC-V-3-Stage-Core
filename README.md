@@ -21,6 +21,11 @@ The CPU implements a classic 3-stage pipeline:
 3. **Writeback Stage**: Register file updates
 
 ![151](https://github.com/user-attachments/assets/0501c1fc-a4d6-41cb-a675-2faaed531b55)
+## Physical Design
+
+<img width="509" height="429" alt="image" src="https://github.com/user-attachments/assets/e6ae5442-1522-4769-b982-767f06bf58bc" />
+<img width="642" height="538" alt="image" src="https://github.com/user-attachments/assets/75b679b8-5dc3-4df2-affa-1ac14977dfea" />
+
 
 ## Core Components
 
