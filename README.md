@@ -2,15 +2,6 @@
 
 A fully functional 3-stage pipelined RISC-V CPU implementation in Verilog. This project implements a complete RISC-V instruction set architecture processor with memory hierarchy, cache system, and comprehensive test infrastructure.
 
-
-
-## Physical Design
-Total area of 2000 × 2400 µm. I-cache SRAMs on the left, D-cache SRAMs on the right, CPU logic in the center. Each cache uses one 64×32 metadata SRAM and four 256×32 data banks.
-<p align="center">
-  <img src="./assets/11.png" width="300"/>
-  <img src="./assets/222222.png" width="300"/>
-</p>
-
 ## Overview
 This is a 3-stage pipelined RISC-V processor core that supports the RV32I base instruction set. The processor features:
 
@@ -18,7 +9,13 @@ This is a 3-stage pipelined RISC-V processor core that supports the RV32I base i
 - Complete RISC-V RV32I instruction set support
 - Direct-mapped instruction and data cache
 - Memory management unit with partial load/store support
-- Comprehensive test suite with RISC-V ISA compliance tests
+
+## Physical Design
+Total area of 2000 × 2400 µm. I-cache SRAMs on the left, D-cache SRAMs on the right, CPU logic in the center. Each cache uses one 64×32 metadata SRAM and four 256×32 data banks.
+<p align="center">
+  <img src="./assets/11.png" width="300"/>
+  <img src="./assets/222222.png" width="300"/>
+</p>
 
 ## Architecture
 
