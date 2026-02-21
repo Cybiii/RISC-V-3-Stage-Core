@@ -1,11 +1,3 @@
-// .___      .___          /\ __    .__  .__ __              __  .__    .__                 ___ 
-// |   |   __| _/____   ___)//  |_  |  | |__|  | __ ____   _/  |_|  |__ |__| ______  /\    /  / 
-// |   |  / __ |/  _ \ /    \   __\ |  | |  |  |/ // __ \  \   __\  |  \|  |/  ___/  \/   /  /  
-// |   | / /_/ (  <_> )   |  \  |   |  |_|  |    <\  ___/   |  | |   Y  \  |\___ \   /\  (  (   
-// |___| \____ |\____/|___|  /__|   |____/__|__|_ \\___  >  |__| |___|  /__/____  >  \/   \  \  
-//            \/           \/                    \/    \/             \/        \/         \__\ 
-
-
 `include "util.vh"
 `include "const.vh"
 
@@ -96,19 +88,6 @@ module cache #
   wire is_read = (delayed_mask == 4'b0000);
   wire is_write = ~is_read;
 
-
-
-
-
-// ███    ███ ███████ ████████  █████  ██████   █████  ████████  █████      ███████ ██████   █████  ███    ███ 
-// ████  ████ ██         ██    ██   ██ ██   ██ ██   ██    ██    ██   ██     ██      ██   ██ ██   ██ ████  ████ 
-// ██ ████ ██ █████      ██    ███████ ██   ██ ███████    ██    ███████     ███████ ██████  ███████ ██ ████ ██ 
-// ██  ██  ██ ██         ██    ██   ██ ██   ██ ██   ██    ██    ██   ██          ██ ██   ██ ██   ██ ██  ██  ██ 
-// ██      ██ ███████    ██    ██   ██ ██████  ██   ██    ██    ██   ██     ███████ ██   ██ ██   ██ ██      ██ 
-
- 
- 
- 
   sram22_64x32m4w8 metadata (
     .clk(clk),
     .we(mdata_we),
@@ -118,20 +97,6 @@ module cache #
     .dout(mdata_dout)
   );
 
-
-
-
-
-  //  ██████  █████   ██████ ██   ██ ███████     ███████ ██████   █████  ███    ███ ███████ 
-  // ██      ██   ██ ██      ██   ██ ██          ██      ██   ██ ██   ██ ████  ████ ██      
-  // ██      ███████ ██      ███████ █████       ███████ ██████  ███████ ██ ████ ██ ███████ 
-  // ██      ██   ██ ██      ██   ██ ██               ██ ██   ██ ██   ██ ██  ██  ██      ██ 
-  //  ██████ ██   ██  ██████ ██   ██ ███████     ███████ ██   ██ ██   ██ ██      ██ ███████ 
-
- 
- 
- 
- 
   sram22_256x32m4w8 cache0 (
     .clk(clk),
     .we(cache0_we),
@@ -168,16 +133,6 @@ module cache #
     .dout(cache3_dout)
   );
 
-
-
-
-  //  ██████  ██████  ███    ███ ██████  ██ ███    ██  █████  ████████ ██  ██████  ███    ██  █████  ██          ██       ██████   ██████  ██  ██████ 
-  // ██      ██    ██ ████  ████ ██   ██ ██ ████   ██ ██   ██    ██    ██ ██    ██ ████   ██ ██   ██ ██          ██      ██    ██ ██       ██ ██      
-  // ██      ██    ██ ██ ████ ██ ██████  ██ ██ ██  ██ ███████    ██    ██ ██    ██ ██ ██  ██ ███████ ██          ██      ██    ██ ██   ███ ██ ██      
-  // ██      ██    ██ ██  ██  ██ ██   ██ ██ ██  ██ ██ ██   ██    ██    ██ ██    ██ ██  ██ ██ ██   ██ ██          ██      ██    ██ ██    ██ ██ ██      
-  //  ██████  ██████  ██      ██ ██████  ██ ██   ████ ██   ██    ██    ██  ██████  ██   ████ ██   ██ ███████     ███████  ██████   ██████  ██  ██████ 
-
-
    /*
     How the TIO Partioning Works: 
       - Need to look at address index * 4 (and then the 3 following ones)
@@ -201,7 +156,6 @@ module cache #
   */
 
   // TIO: writeback data is directly the 4 bank outputs
-
   // Always gonna be this when we're pushing to memory
   assign mem_req_data_bits = {cache3_dout, cache2_dout, cache1_dout, cache0_dout};
 
@@ -242,15 +196,10 @@ module cache #
         end
       end
 
-      CHECK_HIT: begin // Either we HIT and respond, or MISS and go to memory operations
+      CHECK_HIT: begin
       
         mdata_line_index = delayed_index;
         cache_line_index = {delayed_index, delayed_word_offset};
-
-        /*
-          CACHE HIT CACHE HIT CACHE HIT CACHE HIT CACHE HIT CACHE HIT CACHE HIT CACHE HIT
-        */
-
         if (hit) begin
 
           if (is_write) begin
@@ -279,11 +228,7 @@ module cache #
               end
             endcase
 
-
-          // READ HIT
           end else begin
-            
-            
             case (delayed_addr[1:0])
               2'b00: begin
                 cpu_resp_data = cache0_dout;
@@ -301,13 +246,7 @@ module cache #
             cpu_resp_valid = 1'b1;
           end
 
-          // On hit, we go back to IDLE (no pipelining)
           next_state = IDLE;
-
-        /*
-          CACHE MISS CACHE MISS CACHE MISS CACHE MISS CACHE MISS CACHE MISS CACHE MISS CACHE MISS
-        */
-
         end else begin
           
           
@@ -324,8 +263,6 @@ module cache #
         end
       end
 
-
-      // We'll keep track of the 4 cycles as we write all 16 words (4 words at a time) to memory
       WRITE_TO_MEM: begin
         mdata_line_index = delayed_index;
 
@@ -366,7 +303,6 @@ module cache #
       LOAD_FROM_MEM: begin
         mdata_line_index = delayed_index;
 
-        // for the first 4 cycles we're just gonna write
         if (sram_access_cycle < 3'd4) begin
           
           
@@ -389,7 +325,6 @@ module cache #
           next_state = LOAD_FROM_MEM;  // stay in this state until done
 
         end else begin
-          // we're done writing, so now we can get ready to update the metadata
           mdata_we = 1'b1;
           mdata_din = {delayed_tag, 1'b0, 1'b1, 10'b0};
           next_sram_access_cycle = 3'b000;
@@ -399,8 +334,6 @@ module cache #
         end
       end
 
-      // This one cycle delay allows me to go straight to checking hit when there's a memory access followed by another memory access
-      // This rewrite used to be at the end of LOAD_FROM_MEM
       METADATA_REWRITE: begin
         cache_line_index = {delayed_index, delayed_word_offset};
         mdata_line_index = delayed_index;
@@ -412,16 +345,6 @@ module cache #
       end
     endcase
   end
-
-
-  // ███████ ███████  ██████  ██    ██ ███████ ███    ██ ████████ ██  █████  ██          ██       ██████   ██████  ██  ██████ 
-  // ██      ██      ██    ██ ██    ██ ██      ████   ██    ██    ██ ██   ██ ██          ██      ██    ██ ██       ██ ██      
-  // ███████ █████   ██    ██ ██    ██ █████   ██ ██  ██    ██    ██ ███████ ██          ██      ██    ██ ██   ███ ██ ██      
-  //      ██ ██      ██ ▄▄ ██ ██    ██ ██      ██  ██ ██    ██    ██ ██   ██ ██          ██      ██    ██ ██    ██ ██ ██      
-  // ███████ ███████  ██████   ██████  ███████ ██   ████    ██    ██ ██   ██ ███████     ███████  ██████   ██████  ██  ██████ 
-  //                     ▀▀
-
-
 
   always @(posedge clk) begin
     if (reset) begin

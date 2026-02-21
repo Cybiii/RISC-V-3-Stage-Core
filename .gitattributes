@@ -1,0 +1,4 @@
+# Exclude test suite from GitHub language stats (Linguist)
+# Your RTL in src/ will be counted; C/assembly tests won't
+tests/ linguist-detectable=false
+tests/** linguist-detectable=false
