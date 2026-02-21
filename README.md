@@ -24,11 +24,11 @@ The CPU implements a classic 3-stage pipeline:
 
 ## Core Components
 
-### CPU Core (`Riscv151.v`)
+### CPU Core (`Riscv151.sv`)
 
 The main processor module implementing the 3-stage pipeline. Handles instruction flow, hazard detection, and pipeline control.
 
-### ALU (`ALU.v`)
+### ALU (`ALU.sv`)
 
 Arithmetic Logic Unit supporting all RISC-V arithmetic and logical operations including:
 
@@ -37,7 +37,7 @@ Arithmetic Logic Unit supporting all RISC-V arithmetic and logical operations in
 - Shift operations
 - Comparison operations
 
-### Control Unit (`Control.v`)
+### Control Unit (`Control.sv`)
 
 Generates control signals for instruction execution, including:
 
@@ -46,14 +46,14 @@ Generates control signals for instruction execution, including:
 - Memory access control
 - Branch and jump control
 
-### Register File (`RegFile.v`)
+### Register File (`RegFile.sv`)
 
 32-entry register file with dual read ports and single write port, implementing the RISC-V register specification (x0-x31).
 
 ### Memory System
 
-- **Cache** (`Cache.v`): Instruction and data cache
-- **Memory** (`Memory151.v`): Main memory controller
+- **Cache** (`Cache.sv`): Instruction and data cache
+- **Memory** (`Memory151.sv`): Main memory controller
 - **Partial Load/Store**: Handles byte and halfword memory operations
 
 ![151(1)](https://github.com/user-attachments/assets/1db9d5e1-e972-4364-987f-f9f91320f2d0)
