@@ -2,9 +2,9 @@
 # Technology used is Sky130
 vlsi.core.technology: hammer.technology.sky130
 technology.sky130:
-  sky130A: "/home/ff/eecs151/fa24/pdk/sky130A"  
-  sram22_sky130_macros: "/home/ff/eecs151/fa24/sky130_srams/sram22_sky130_macros"  
-  sky130_cds:    "/home/ff/eecs151/fa24/pdk/sky130_release_0.0.4"
+  sky130A: "/home/ff/eecs151/fa24/pdk/sky130A"
+  sram22_sky130_macros: "/home/ff/eecs151/fa24/sky130_srams/sram22_sky130_macros"
+  sky130_cds: "/home/ff/eecs151/fa24/pdk/sky130_release_0.0.4"
   sky130_scl: "/home/ff/eecs151/fa24/pdk/sky130_scl_9T_0.0.5"
   stdcell_library: "sky130_scl"
 
@@ -24,24 +24,21 @@ vlsi.inputs.supplies.VDD: "1.8 V"
 vlsi.inputs.power_spec_mode: "auto"
 vlsi.inputs.power_spec_type: "cpf"
 
-vlsi.inputs.supplies.power: [
-  {name: "VDD", voltage: "1.8" , pins: ["vcc", "vdd", "VDD"]}
-]
-vlsi.inputs.supplies.ground: [
-  {name: "VSS", pins: ["vss", "VSS"]}
-]
-
+vlsi.inputs.supplies.power:
+  [{ name: "VDD", voltage: "1.8", pins: ["vcc", "vdd", "VDD"] }]
+vlsi.inputs.supplies.ground: [{ name: "VSS", pins: ["vss", "VSS"] }]
 
 # Specify the setup and hold corners for Sky130
-vlsi.inputs.mmmc_corners: [
-  {name: "ss_100C_1v60", type: "setup", voltage: "1.60 V", temp: "100 C"},
-  {name: "ff_n40C_1v95", type: "hold", voltage: "1.95 V", temp: "-40 C"}
-]
+vlsi.inputs.mmmc_corners:
+  [
+    { name: "ss_100C_1v60", type: "setup", voltage: "1.60 V", temp: "100 C" },
+    { name: "ff_n40C_1v95", type: "hold", voltage: "1.95 V", temp: "-40 C" },
+  ]
 
 # SRAM Compiler compiler options
 vlsi.core.sram_generator_tool: "hammer.technology.sky130.sram_compiler"
 # Specify this since we are not using macrocompiler
-vlsi.inputs.sram_parameters: "/home/ff/eecs151/fa24/hammer/hammer/technology/sky130/sram-cache.json"  
+vlsi.inputs.sram_parameters: "/home/ff/eecs151/fa24/hammer/hammer/technology/sky130/sram-cache.json"
 vlsi.inputs.sram_parameters_meta: ["transclude", "json2list"]
 
 # Tool options. Replace with your tool plugin of choice.
@@ -77,7 +74,7 @@ vlsi.core.power_tool: "hammer.power.voltus"
 power.voltus.version: "221"
 power.voltus.voltus_bin: "/share/instsww/cadence/SSV221/bin/voltus"
 
-# Generate Make include to aid in flow 
+# Generate Make include to aid in flow
 vlsi.core.build_system: make
 
 # Power Straps

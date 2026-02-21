@@ -7,8 +7,6 @@
 `ifndef OPCODE
 `define OPCODE
 
-// ***** Opcodes *****
-
 // No operation (kill)
 `define OPC_NOOP        7'b0000000
 
@@ -34,8 +32,6 @@
 // Control status register
 `define OPC_CSR         7'b1110011
 
-
-// ***** Function codes *****
 
 // Branch function codes
 `define FNC_BEQ         3'b000
