@@ -62,12 +62,3 @@ Generates control signals for instruction execution, including:
 - **Partial Load/Store**: Handles byte and halfword memory operations
 
 ![151(1)](https://github.com/user-attachments/assets/1db9d5e1-e972-4364-987f-f9f91320f2d0)
-
-## Configuration Files
-
-- `sim-rtl.yml`: RTL simulation configuration
-- `sim-gl-syn.yml`: Gate-level simulation (post-synthesis)
-- `sim-gl-par.yml`: Gate-level simulation (post-place-and-route)
-- `syn.yml`: Synthesis configuration
-- `par.yml`: Place and route configuration
-- `sky130.yml`: SkyWater 130nm PDK configuration
